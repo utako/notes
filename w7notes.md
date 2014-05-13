@@ -195,7 +195,8 @@ Difference between `get` and `fetch`: `get` is an instance method, `fetch` is a 
 
 ### Jeff's Fighter Demo - Creating a Form
 
-1. in `index.jst.ejs`
+1. in `index.jst.ejs`:
+
         <ul id="fighter-list">
           <% fighters.forEach(function(fighter) { %>
             <li><%= fighter.get('name') + " : " + "fighter.get('skill') %></li>
