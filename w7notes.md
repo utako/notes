@@ -130,6 +130,7 @@ Note: `forEach` will not let you break.
         <div id="gym stuff"></div>
 
 3. Then, let's make a render method by extending on the Index prototype.
+
         _.extend(Index.prototype, {
           render: function() {
             this.$el.html('yay it worked');
@@ -209,6 +210,7 @@ Difference between `get` and `fetch`: `get` is an instance method, `fetch` is a 
           <button type="submit">Create New Fighter</button>
         </form>
 2. Adding an event (remember to include `jquery.serializejson.js` in `application.js`):
+
         _.extend(Index.prototype, {
           render: function() {
             var renderedTemplate = this.template({
@@ -224,6 +226,7 @@ Difference between `get` and `fetch`: `get` is an instance method, `fetch` is a 
         });
 3. In the console, we can now use jQuery to add a fighter by hand.
 4. Now we add it to `handleFighterCreate` and be sure to remember that the data are nested under 'fighter'. We create the fighter, and post it to the server, clear the field:
+
         handleFighterCreate: function(event) {
           event.preventDefault();
           var $form = $(event.target);
@@ -279,3 +282,6 @@ Difference between `get` and `fetch`: `get` is an instance method, `fetch` is a 
             Gym.Fighter.on('enterTheDojo', this.render.bind(this));
           }
         })(this);
+
+
+## w7d2 - Intro to BACKBONE
