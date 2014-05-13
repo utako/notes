@@ -241,15 +241,16 @@ Difference between `get` and `fetch`: `get` is an instance method, `fetch` is a 
             on: function(eventTitle, callback) {
               this.events[eventTitle] = this.events[eventTitle] || [];
               this.events[eventTitle].push(callback);
-            }
+            },
+
             trigger: function(eventTitle) {
               var callbacks = this.events[eventTitle];
               var arg = arguments[1];
               callbacks = callbacks || [];
               callbacks.forEach(function(callback) {
                 callback(arg)
-            });
-          },
+              });
+            },
           ...
         })
 6. Then, we register the event:
