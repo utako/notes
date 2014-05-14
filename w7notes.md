@@ -741,6 +741,24 @@ Don't want to instantiate it every single time you want to get the comments for 
     })
   }
 ```
+* If we want to group API requests:
+  1. `include` will automatically nest in associated items
+```ruby
+  def show
+    @todo = Todo.find(params[:id])
+    render json: :todo, include: :comments
+  end
+```
+  2. This gives us an ugly response, so we `#parse()` it! We delete the resp.comments from the response, but we use the given comments to set `this.comments`. Neat. We have to ask it to keep parsing the comments, tho.
+```javascript
+  parse: function(resp) {
+    if (resp.comments) {
+      this.comments().set(resp.comments, { parse: true});
+      delete resp.comments;
+    }
+    return resp;
+  },
+```
 
 ### On `#delegateEvents()` Magic:
 
