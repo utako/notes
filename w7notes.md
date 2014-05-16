@@ -767,3 +767,54 @@ For when you have a nested view! The idea here is at one point, I'm creating a `
 The first time we run render, it's going to run the template and stick $el into the template at the specified div location.
 
 The second time it renders, it's goign to reset $el by reevaluating the template, clear out the contents of the show's $el and rebuilds it with the new content and stick it back into the $el. When you do that, we have to reattach the listeners by using `.delegateEvents()`.
+
+## w7d4 - Bootstrap!
+
+### normalize.css
+
+* a CSS reset. gives basic elements like headers, default fonts, margins, for a baseline across all browsers.
+
+### Grid system
+
+* You just have to worry about columns and rows.
+* Based on 12 column width -- if you want something to take up half a page, you give it a column width of 6.
+
+  ```html
+  <div class="row"
+    <div class="col-md-6">
+    </div>
+  </div>
+  ```
+* You can also do grid-offset to center more within this div.
+
+### Initialize
+
+1. `gem `bootstrap-sass`
+2. rename `application.css` to `application.css.scss`
+3. Add import line to `application.css.scss` file:
+```css
+  @import "bootstrap";
+```
+4. In `application.js`
+
+        //= require bootstrap
+5. Make sure the following is included in the html.erb file:
+
+        <%= stylesheet_link_tag 'application' %>
+        <%= javascript_include_tag 'application' %>
+        <%= csrf_meta_tags %>
+
+## Video 17: CompositeView
+
+* Write a new view class to better support rendering comments and todos. Eventually, you'll go back to todos.show and extend the compositeview.
+
+* addSubView method: takes each view and pushes it into the subviews method array.
+```javascript
+  addSubview: function(selector, view) {
+    var selectorSubview =
+      subviews[selector] || (subviews[selector]= [] );
+      selectorsSubviews.push(view);
+  }
+```
+
+*
