@@ -60,7 +60,7 @@ end
 Connecting with netcat will accept input from the console and do what you want it to do.
 * The problem with the server as we've written it is that it has low concurrency: the problem is that while it waits for input; it won't accept a second connection until it gets the input.
 
-### Fixing Low Concurrency Using Threads in Ruby
+### Low Concurrency Threads
 
 * Thread: Allows us to run simultaneous lines of code.
 
