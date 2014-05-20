@@ -446,3 +446,93 @@ server.listen(3000);
 * Node was written to solve the C10K problem (how to handle 10k clients simultaneously)
 * Node is designed to support this by not creating any new threads; just more events (sockets) to listen to!
 * Node is a good choice for building applications that handle many simultaneous connections.
+
+
+## w8d2 - Ned's Lecture
+
+### Rails vs Node
+
+* Rails is single-thread
+
+
+
+### Historic Solution to the Polling Problem: Long Polling
+
+* Make a GET request to /api/rooms/123/messages
+
+* The server starts sending you back some JSON ( {created_at: "1:27pm", text: "foo"}. {created_at: "1:29pm", text: "bar"})
+
+* The server responds by sending all of the data it has and closing the connection.
+
+* In long polling, the connection remains open. In HTTP, we're used to making a request, where the server sends us back a response and we parse the JSON. In HTTP, we can stream. If we want more data, the server can send you more data. Instead of having the entire response sent in one big chunk, long polling will send you some data and stop sending you data for a while, continue sending you data at a later time, etc.
+* There's only one GET request.
+
+* We can't get the whole response at one time with long-polling.
+
+* This doesn't solve the problem of posting. You can't send new data at the same time as the GET request. You could make an entirely separate POST...
+
+### Modern Day Solution: WebSockets
+
+* Ruby <-> Matz's Ruby Interpreter (MRI): program that runs Ruby code
+Rails
+
+* Javascript <-> Node (program that runs JS code)
+Express <-> Socket.IO
+
+The major difference is that the idea of things being asynchronous is baked into Node.
+
+* HTTP request structure: "VERB PATH http/1.1"
+
+### WebSockets Demo
+
+* [Socket.IO docs](socket.io)
+
+* `socket-server.js`
+
+```javascript
+var socketIo = require("socket.io");
+var http = require('http');
+var fs = require('fs');
+
+var server = http.createServer(function (req, res) {
+  fs.readFile("index.html", function (err, data) {
+    if (err) {
+      res.end(data);
+    }
+  })
+});
+server.listen(3000)
+// When they request socketio.js, give them the socket.io javascript library.
+
+var io = socketIo.listen(server);
+
+io.sockets.on("connection", function(socket) {
+  socket.emit("message", {text: "Welcome to sockets!"})
+  socket.on("heartbeat", function(data) {
+    console.log("Heard heartbeat");
+  })
+});
+// plugs io into server.
+```
+The callback takes two arguments. The errors and the data.
+* Static Webpage: index.html
+
+```html
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect('http://localhost:3000');
+      // setInterval(function () {
+      //   socket.emit("heartbeat", {}), 500
+      // })
+      socket.on("message", function (data) {
+        alert(data.text);
+      })
+    </script>
+  </head>
+  <body>
+    <h3>Hello</h3>
+  </body>
+</html>
+```
