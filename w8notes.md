@@ -441,7 +441,7 @@ server.listen(3000);
 * This works and is non-blocking.
 * Node doesn't have a way to create new threads. Node forces you to use the non-blocking style pattern (callbacks).
 
-### Node Trivia
+### Node Trivia OMG
 
 * Node was written to solve the C10K problem (how to handle 10k clients simultaneously)
 * Node is designed to support this by not creating any new threads; just more events (sockets) to listen to!
