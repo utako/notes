@@ -536,3 +536,90 @@ The callback takes two arguments. The errors and the data.
   </body>
 </html>
 ```
+
+## CSS
+
+### Order of Priority
+1. Inline
+2.
+3.
+
+### Selectors
+```css
+  div.class1 ul div > a.class2.class3 + p, li.class4 {
+    background: green
+  }
+```
+* div: all div elements
+* #my-id: element with id 'my-id'
+* .my-class: class
+* div#my-id.my-class: div elements with both id my-id and class my-class
+
+* div.class1 ul {}: a space means all children matching
+* div.class1 > ul {}: Descendents
+* div.class1.class2: div with both class1 and class 2
+* label + input: matching next sibling
+* div:hover {}: a colon means a "pseudo selector." Put these on elements to specify when a state occurs.
+
+### Trello Demo
+
+* Get rid of li dots:
+
+        ul {
+          list-style: none;
+          padding: 16px;
+        }
+* How to get things not to wrap:
+
+        white-space: nowrap;
+* Overflow:
+        overflow-x: scroll
+        overflow-y: scroll
+        overflow: hidden
+Can either scroll in the x-y coordinates or just be hidden.
+* To center item in its parents container, give your item a fixed width in combination with left and right margins of 'auto.'
+* Vertically centered? Use position: absolute with left: percentage, right: percentage. Negative margins. Make sure the parent has position relative or position absolute.
+
+## w8d3 The Asset Pipeline
+
+* Compilation: 'sass-rails' and 'coffee-rails' gems compile sass and coffeescript into css and javascript, respectively. The extension on the far right gets translated to the one on the left. You can even go from erb to js! For example, in `app/assets/javascripts/mustache.js.erb`:
+
+```javascript
+alert("it is <%= Time.now %> and Don Fry is still awesome.");
+```
+* Concatenates all of the files into `application.js`
+* Compresses our assets: Takes out all of the unneeded white space, all of the extra stuff that isn't needed. This uses `gem 'uglifier'`.
+
+### Steps
+1. Make a git repository and commit!
+2. Create a new heroku application
+
+
+    heroku create
+    git push heroku master
+    # => Initializing repository, etc.
+3. Problem: the picture isn't there! That's because the asset pipeline is unhappy.
+4. Serve static assets:
+
+```ruby
+config.serve_static_assets = true;
+```
+5. Open heroku
+
+
+    heroku open
+6. git commit
+7. This will concatenate but not compress the javascript and css files into two files (`application.css` and `application.js`):
+
+```ruby
+config.assets.debug = false
+```
+### Aside
+```
+rake assets:precompile
+rake assets:clobber
+```
+
+Add gem 'rails_12factor'
+
+There's a better_errors for assets! sprockets_better_errors
